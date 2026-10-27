@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08111f" id="themeColor">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RapportoTIA">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="apple-touch-icon" href="rapportoTIA/AxisGear_Dark_256.png" id="appleIcon">
+<link rel="manifest" href="rapportoTIA/manifest.webmanifest">
+<title>RapportoTIA</title>
+<style>
+:root{--bg:#08111f;--panel:#101d30;--panel2:#15253b;--line:#29415f;--text:#eef6ff;--muted:#91a7c1;--blue:#4d8dff;--cyan:#46d7ca;--green:#69df8b;--orange:#ffb45e;--red:#ff6f7d}
+.light{--bg:#edf4fb;--panel:#fff;--panel2:#edf4fb;--line:#b8cbe0;--text:#15263a;--muted:#58718d;--blue:#266fc4;--cyan:#087f75;--green:#18824a;--orange:#a65e0b;--red:#b42f40}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#17345b 0,transparent 34%),linear-gradient(145deg,#07101d,#0a1525 65%,#07101c);color:var(--text);font:14px/1.45 "Segoe UI",Arial,sans-serif;min-height:100vh;transition:background .25s,color .25s}body.light{background:radial-gradient(circle at 15% 0,#d4e8ff 0,transparent 36%),linear-gradient(145deg,#f6f9fc,#e7f0f9 65%,#f7fafc)}
+.app{max-width:1240px;margin:auto;padding:max(30px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(50px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left))}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}.topActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.brand{display:flex;align-items:center;gap:14px}.logo{width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 8px 18px #0008)}h1{font-size:25px;margin:0;letter-spacing:-.4px}.tagline{color:var(--muted);margin-top:2px}.badge{border:1px solid #35649a;background:#122944;color:#9cc6ff;border-radius:99px;padding:7px 12px;font-weight:650}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.grid>div>.card+.card{margin-top:18px}.card{background:linear-gradient(160deg,#122238e8,#0d192ae8);border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:0 18px 45px #0004;backdrop-filter:blur(10px)}.light .card{background:linear-gradient(160deg,#fffffff2,#edf4fbf2);box-shadow:0 14px 35px #23415d20}.card h2{font-size:15px;margin:0 0 15px;display:flex;align-items:center;gap:9px}.num{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#294c78;color:#bcd9ff;font-size:12px}.light .num{background:#d6e8fb;color:#235e9e}
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stage{background:#0b1728;border:1px solid #233b58;border-radius:13px;padding:13px;transition:.2s}.stage.off{opacity:.42}.stagehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}.stagehead strong{font-size:13px}.switch{position:relative;width:38px;height:21px}.switch input{display:none}.switch span{position:absolute;inset:0;background:#32445a;border-radius:99px;cursor:pointer}.switch span:after{content:"";position:absolute;width:15px;height:15px;left:3px;top:3px;border-radius:50%;background:#fff;transition:.2s}.switch input:checked+span{background:var(--blue)}.switch input:checked+span:after{transform:translateX(17px)}
+label{display:block;color:var(--muted);font-size:11px;margin:9px 0 4px}select,input{width:100%;min-height:42px;background:#101f33;color:var(--text);border:1px solid #2c4562;border-radius:8px;padding:9px 10px;outline:0;font-size:16px}.light select,.light input{background:#fff;border-color:#b7c9dc}select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4d8dff20}.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}.formula{margin-top:11px;border-radius:9px;background:#142942;padding:9px;text-align:center;color:#c6dcf5;font:600 12px Consolas,monospace}.formula b{color:var(--cyan)}.light .formula,.light .calNote{background:#e4eef8;color:#304b67}
+.archive{margin-bottom:18px}.archiveGrid{display:grid;grid-template-columns:1fr auto 1fr auto auto;gap:9px;align-items:end}.axisGrid{grid-template-columns:1fr 1fr auto auto}.archiveActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{width:auto;min-height:44px;border:1px solid #386ca7;border-radius:9px;background:linear-gradient(145deg,#3679c8,#255a99);color:#fff;padding:9px 15px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation}.btn:hover{filter:brightness(1.12)}.btn.open{background:linear-gradient(145deg,#267b68,#175849);border-color:#39927e}.btn.delete{background:linear-gradient(145deg,#a33b49,#712631);border-color:#bd5663}.btn.secondary{background:#1b2e45;border-color:#49627e}.light .btn.secondary{background:#e4edf7;color:#23415e;border-color:#9fb6ce}.saveStatus{min-height:18px;margin-top:8px;color:var(--muted);font-size:12px}.saveStatus.ok{color:var(--green)}.saveStatus.error{color:var(--red)}.projectOverview{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}.projectCard{background:#0b1728;border:1px solid #29415f;border-radius:13px;padding:12px;cursor:pointer;transition:.18s}.projectCard:hover{transform:translateY(-1px);border-color:#3d6ea6}.projectCard.active{border-color:var(--blue);box-shadow:0 0 0 2px #4d8dff30}.projectTitle{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.projectTitle strong{font-size:14px}.projectCount{color:#9cc6ff;border:1px solid #35649a;background:#122944;border-radius:99px;padding:3px 8px;font-size:11px;font-weight:750;white-space:nowrap}.projectToggle{margin-top:10px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #29415f;border-radius:10px;background:#101f33;color:#cde3fb;padding:8px 10px;font-size:12px;font-weight:750;cursor:pointer}.projectToggle:hover{border-color:#4d8dff;color:#eef6ff}.projectToggle .chev{font-size:15px;color:#8fc2ff}.axisSummary{margin-top:9px;display:grid;gap:6px}.axisSummary.collapsed{display:none}.axisChip{background:#101f33;border:1px solid #2c4562;border-radius:9px;padding:8px;color:#c6dcf5;font-size:12px}.axisChip b{color:#eef6ff}.axisMeta{color:var(--muted);font-size:11px;margin-top:2px}.projectEmpty{color:var(--muted);font-size:12px}.light .projectCard,.light .axisChip{background:#f5f9fd}.light .projectToggle{background:#eaf2fb;color:#29445f;border-color:#bdd0e4}.light .projectToggle:hover{border-color:#7ca5d0}.light .projectCount{background:#d6e8fb;color:#235e9e;border-color:#9fbfe2}.light .projectCard:hover{border-color:#7ca5d0}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hintText{margin-top:10px;color:var(--muted);font-size:12px}.radioRow{display:flex;gap:8px;flex-wrap:wrap}.choice{flex:1;min-width:105px}.choice input{display:none}.choice span{display:block;text-align:center;padding:9px 7px;border:1px solid #2c4562;background:#101f33;border-radius:9px;color:#a9bdd3;cursor:pointer}.choice input:checked+span{border-color:var(--blue);background:#193963;color:#fff}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{background:#0b1728;border:1px solid #223a57;border-radius:12px;padding:12px}.result.main{grid-column:span 2;background:linear-gradient(145deg,#17395e,#102941);border-color:#3c6897}.result.tia{background:linear-gradient(145deg,#174634,#123326);border-color:#397b5c}.k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.v{font-size:19px;font-weight:750;margin-top:4px;word-break:break-word}.main .v{color:#8fc2ff}.tia .v{color:#85f0a6}.u{font-size:11px;color:var(--muted);margin-left:3px}
+.steps{margin-top:18px}.step{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #20364f}.step:last-child{border:0}.dot{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#1c3451;color:#8fc2ff;font-size:11px}.step small{display:block;color:var(--muted)}.eq{font:600 12px Consolas,monospace;color:#cce0f5;text-align:right}
+.calibration{margin-top:18px}.calibration.off .calBody{display:none}.calHead{display:flex;align-items:center;justify-content:space-between}.calHead h2{margin:0}.calBody{margin-top:15px}.correctionSetup{display:grid;grid-template-columns:230px 230px;gap:12px;align-items:end}.correctionRows{display:grid;gap:8px;margin-top:12px}.correctionRow{display:grid;grid-template-columns:42px 1fr 1fr 1.05fr 1.05fr 1.25fr;gap:8px;align-items:end;background:#0b1728;border:1px solid #29415f;border-radius:10px;padding:9px}.correctionRow .idx{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:#1c3451;color:#8fc2ff;font-weight:800}.rowOut{font-size:12px;color:#cce0f5}.rowOut b{display:block;color:#ffc177;font-size:14px}.calResults{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:12px}.calResult{background:#0b1728;border:1px solid #29415f;border-radius:10px;padding:10px}.calResult.corrected{background:linear-gradient(145deg,#4b3014,#30200f);border-color:#8c5b25}.calResult.corrected .v{color:#ffc177}.calResult.development{background:linear-gradient(145deg,#18344e,#102538);border-color:#3b668d}.calResult.development .v{color:#8fdcff}.calResult.hidden{display:none}.errorChartBox{margin-top:12px;background:#0b1728;border:1px solid #29415f;border-radius:12px;padding:11px}.errorChartHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}.errorChartHead strong{font-size:13px}.errorChartHead span{color:var(--muted);font-size:12px;text-align:right}.errorChart svg{width:100%;min-height:390px;height:auto;display:block}.errorChart .grid{stroke:#29415f;stroke-width:1}.errorChart .zero{stroke:#ffc177;stroke-width:2}.errorChart .limit{stroke:var(--red);stroke-width:1.7;stroke-dasharray:7 5}.errorChart .axis{stroke:#49627e;stroke-width:1.2}.errorChart .errLine{fill:none;stroke:var(--blue);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}.errorChart .dot{stroke:#0b1728;stroke-width:2}.errorChart .dot.ok{fill:var(--green)}.errorChart .dot.out{fill:var(--red)}.errorChart text{fill:var(--muted);font:11px "Segoe UI",Arial,sans-serif}.errorChart .valueLabel{fill:var(--text);font-weight:700}.errorChart .limitLabel{fill:var(--red);font-weight:700}.errorChartEmpty{color:var(--muted);font-size:12px;padding:16px;text-align:center}.analysisBox{margin-top:12px;background:#0b1728;border:1px solid #29415f;border-radius:12px;padding:12px}.analysisHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.analysisHead strong{font-size:13px}.qualityBadge{border-radius:99px;padding:5px 10px;font-size:12px;font-weight:800}.qualityBadge.good{background:#123326;color:#85f0a6;border:1px solid #397b5c}.qualityBadge.warn{background:#332312;color:#ffbf74;border:1px solid #674625}.qualityBadge.bad{background:#3a1720;color:#ff9ba6;border:1px solid #7b3540}.analysisGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.analysisMetric{background:#101f33;border:1px solid #2c4562;border-radius:9px;padding:9px}.analysisMetric .k{font-size:10px}.analysisMetric .v{font-size:16px}.analysisText{margin-top:10px;color:#c6dcf5;font-size:12px}.light .errorChartBox,.light .analysisBox,.light .analysisMetric{background:#f5f9fd}.light .errorChart .dot{stroke:#f5f9fd}.calNote{margin-top:11px;color:#a9bdd3;font-size:12px;background:#0b1728;border-radius:9px;padding:10px;border-left:3px solid var(--orange)}
+.speedCard{margin-top:18px}.speedResults{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.light .stage,.light .result,.light .calResult,.light .correctionRow{background:#f5f9fd}.light .result.main{background:linear-gradient(145deg,#d9eaff,#edf5ff)}.light .result.tia{background:linear-gradient(145deg,#d8f3e3,#edf9f2)}.light .calResult.corrected{background:linear-gradient(145deg,#fff0d9,#fff8ed)}.light .step{border-color:#cad8e6}.light .eq,.light .rowOut{color:#294761}
+.notice{margin-top:12px;color:#ffbf74;background:#332312;border:1px solid #674625;border-radius:9px;padding:9px;display:none}.footer{text-align:center;color:#607994;font-size:11px;margin-top:20px}
+.hidden{display:none!important}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.stages{grid-template-columns:1fr}.options{grid-template-columns:1fr}.top{align-items:flex-start}.calResults{grid-template-columns:1fr 1fr}.analysisGrid{grid-template-columns:1fr 1fr}.archiveGrid{grid-template-columns:1fr auto}.correctionRow{grid-template-columns:36px 1fr 1fr}.rowOut{grid-column:2 / -1}}@media(max-width:600px){.app{padding:max(18px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}.top{display:block}.topActions{margin-top:14px;display:grid;grid-template-columns:1fr 1fr}.logo{width:58px;height:58px}.results,.calResults,.speedResults,.analysisGrid{grid-template-columns:1fr}.result.main{grid-column:auto}.pair,.archiveGrid,.correctionSetup,.correctionRow{grid-template-columns:1fr}.correctionRow .idx{width:100%}.rowOut{grid-column:auto}.archiveActions{display:grid;grid-template-columns:1fr 1fr}.btn{width:100%}.step{grid-template-columns:28px 1fr}.eq{grid-column:2;text-align:left}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div class="brand">
+      <img class="logo" id="appLogo" src="rapportoTIA/AxisGear_Dark_256.png" alt="Logo RapportoTIA">
+      <div><h1>RapportoTIA</h1><div class="tagline">Calcolo cinematico per assi elettrici</div></div>
+    </div>
+    <div class="topActions">
+      <button class="btn secondary" id="themeToggle" type="button">☀ Modalità chiara</button>
+    </div>
+  </header>
+
+  <section class="card archive">
+    <h2><span class="num">S</span> Configurazioni salvate</h2>
+    <div class="archiveGrid">
+      <div><label>Nome progetto</label><input id="recordName" type="text" maxlength="80" placeholder="Es. Linea 1"></div>
+      <button class="btn" id="saveRecord" type="button">Salva progetto</button>
+      <div><label>Progetti disponibili</label><select id="recordList"><option value="">Nessun progetto salvato</option></select></div>
+      <button class="btn open" id="openRecord" type="button">Apri progetto</button>
+      <button class="btn delete" id="deleteRecord" type="button">Elimina</button>
+    </div>
+    <div class="archiveActions">
+      <button class="btn secondary" id="newProject" type="button">Nuovo progetto</button>
+      <button class="btn secondary" id="exportJson" type="button">Esporta JSON</button>
+      <button class="btn secondary" id="exportPdf" type="button">Esporta PDF</button>
+      <button class="btn secondary" id="importJson" type="button">Importa JSON</button>
+      <input id="jsonFile" type="file" accept=".json,application/json" hidden>
+    </div>
+    <div class="saveStatus" id="saveStatus">Connessione all’archivio condiviso del NAS…</div>
+    <div class="projectOverview" id="projectOverview"></div>
+  </section>
+
+  <section class="grid">
+    <div>
+      <div class="card">
+        <h2><span class="num">A</span> Assi del progetto</h2>
+        <div class="archiveGrid axisGrid">
+          <div><label>Asse corrente</label><select id="axisList"><option value="0">Asse 1</option></select></div>
+          <div><label>Nome asse</label><input id="axisName" type="text" maxlength="80" value="Asse 1"></div>
+          <button class="btn" id="newAxis" type="button">Nuovo asse</button>
+          <button class="btn delete" id="deleteAxis" type="button">Elimina asse</button>
+        </div>
+        <div class="archiveActions">
+          <button class="btn open" id="openAxis" type="button">Apri asse</button>
+          <button class="btn open" id="saveAxis" type="button">Salva asse</button>
+          <button class="btn secondary" id="duplicateAxis" type="button">Duplica asse</button>
+        </div>
+        <div class="hintText">“Salva asse” aggiorna l’asse nel progetto aperto. “Salva progetto” scrive tutto il progetto sul NAS.</div>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">1</span> Stadi di trasmissione</h2>
+        <div class="stages" id="stages"></div>
+        <div class="notice" id="warning">Inserisci valori maggiori di zero negli stadi attivi.</div>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h2><span class="num">2</span> Conversione del moto</h2>
+        <div class="radioRow">
+          <label class="choice"><input type="radio" name="motion" value="none" checked><span>Nessuna</span></label>
+          <label class="choice"><input type="radio" name="motion" value="screw"><span>Passo / angolo giro</span></label>
+          <label class="choice"><input type="radio" name="motion" value="diameter"><span>Diametro</span></label>
+          <label class="choice"><input type="radio" name="motion" value="circ"><span>Circonferenza</span></label>
+        </div>
+        <div class="options" style="margin-top:10px">
+          <div id="motionValueBox"><label id="motionLabel">Valore</label><input id="motionValue" type="number" min="0" step="any" value="1"></div>
+          <div><label>Unità movimento asse (UM)</label><select id="unit"><option>mm</option><option>°</option></select></div>
+        </div>
+        <div class="hintText">Qui si definisce come trasformare i giri uscita in movimento asse: usa mm per assi lineari oppure ° per assi rotativi.</div>
+      </div>
+
+      <div class="card speedCard">
+        <h2><span class="num">3</span> Velocità motore</h2>
+        <div class="pair">
+          <div><label>Velocità motore impostata (RPM)</label><input id="rpm" type="number" min="0" step="any" value="1000"></div>
+        </div>
+        <div class="speedResults">
+          <div class="result"><div class="k">V motore</div><div class="v" id="rpmEcho">—</div></div>
+          <div class="result"><div class="k">Velocità asse</div><div class="v" id="perMin">—</div></div>
+          <div class="result"><div class="k">Velocità asse</div><div class="v" id="perSec">—</div></div>
+        </div>
+        <div class="hintText">La V motore non modifica il rapporto TIA: con UM mm la velocità è in m/min e mm/s; con UM ° è in °/min e °/s.</div>
+      </div>
+
+      <div class="card calibration off" id="calibration">
+        <div class="calHead">
+          <h2><span class="num">4</span> Correzione mediante misura reale</h2>
+          <label class="switch" title="Attiva taratura"><input id="calEnabled" type="checkbox"><span></span></label>
+        </div>
+        <div class="calBody">
+          <div class="correctionSetup">
+            <div><label>Numero correzioni da visualizzare</label><input id="correctionCount" type="number" min="1" max="50" step="1" value="1"></div>
+            <div><label>Limite devianza ±</label><input id="deviationLimit" type="number" min="0" step="any" value="0.1"></div>
+            <div><label>Titolo grafico</label><input id="chartTitle" type="text" maxlength="100" placeholder="Es. Y1"></div>
+            <div><label>&nbsp;</label><button class="btn secondary" id="exportChartPng" type="button">Esporta PNG grafico</button></div>
+          </div>
+          <div class="correctionRows" id="correctionRows"></div>
+          <div class="calResults">
+            <div class="calResult"><div class="k">Differenza media</div><div class="v" id="positionError">—</div></div>
+            <div class="calResult"><div class="k">Errore medio</div><div class="v" id="percentError">—</div></div>
+            <div class="calResult"><div class="k">Fattore medio</div><div class="v" id="correctionFactor">—</div></div>
+            <div class="calResult corrected"><div class="k" id="correctedLabel">Risultato medio</div><div class="v" id="correctedValue">—</div></div>
+            <div class="calResult development hidden" id="correctedDevelopmentBox"><div class="k">Sviluppo medio</div><div class="v" id="correctedDevelopment">—</div></div>
+          </div>
+          <div class="errorChartBox">
+            <div class="errorChartHead"><strong>Grafico errori</strong><span id="errorChartRange">Zero al centro</span></div>
+            <div class="errorChart" id="errorChart"></div>
+          </div>
+          <div class="analysisBox" id="errorAnalysisBox">
+            <div class="analysisHead"><strong>Analisi errore</strong><span class="qualityBadge warn" id="analysisQuality">In attesa dati</span></div>
+            <div class="analysisGrid">
+              <div class="analysisMetric"><div class="k">Tipo errore</div><div class="v" id="analysisType">—</div></div>
+              <div class="analysisMetric"><div class="k">Affidabilità correzione</div><div class="v" id="analysisReliability">—</div></div>
+              <div class="analysisMetric"><div class="k">Residuo max stimato</div><div class="v" id="analysisResidual">—</div></div>
+              <div class="analysisMetric"><div class="k">Residuo Δ stimato</div><div class="v" id="analysisResidualSpan">—</div></div>
+            </div>
+            <div class="analysisText" id="analysisMessage">Inserisci almeno 3 misure valide per distinguere errore di scala da andamento non lineare.</div>
+          </div>
+          <div class="calNote" id="calFormula">Ogni correzione usa: valore attuale × quota misurata ÷ quota comandata. In fondo viene mostrata la media dei risultati validi.</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="card">
+      <h2><span class="num">5</span> Risultati rapporto</h2>
+      <div class="results">
+        <div class="result main"><div class="k">Rapporto totale</div><div class="v" id="total">—</div></div>
+        <div class="result"><div class="k">Riduzione equivalente</div><div class="v" id="reduction">—</div></div>
+        <div class="result tia"><div class="k">TIA Ratio × 1000</div><div class="v" id="tia">—</div></div>
+        <div class="result"><div class="k">Sviluppo</div><div class="v" id="development">—</div></div>
+        <div class="result"><div class="k">Unità / giro motore</div><div class="v" id="perRev">—</div></div>
+      </div>
+      <div class="steps" id="steps"></div>
+    </aside>
+  </section>
+  <div class="footer">Archivio condiviso sul NAS · accesso libero dalla webapp</div>
+</main>
+<script>
+const configs={
+ reducer:{name:"Riduttore",a:"Giri uscita",b:"Giri ingresso",hint:"uscita ÷ ingresso"},
+ gear:{name:"Pignone / corona",a:"Denti pignone",b:"Denti corona",hint:"pignone ÷ corona"},
+ pulley:{name:"Puleggia / cinghia",a:"Ø puleggia motrice",b:"Ø puleggia condotta",hint:"motrice ÷ condotta"}
+};
+const defaults=[[1,5],[12,14],[28,36]];
+const stages=document.querySelector("#stages");
+for(let i=0;i<3;i++) stages.insertAdjacentHTML("beforeend",`
+<div class="stage" data-i="${i}">
+ <div class="stagehead"><strong>Rapporto ${i+1}</strong><label class="switch"><input class="enabled" type="checkbox" ${i<1?"checked":""}><span></span></label></div>
+ <label>Tipo di trasmissione</label><select class="type"><option value="reducer">Riduttore</option><option value="gear">Pignone / corona</option><option value="pulley">Puleggia / cinghia</option></select>
+ <div class="pair"><div><label class="la">Giri uscita</label><input class="a" type="number" min="0" step="any" value="${defaults[i][0]}"></div><div><label class="lb">Giri ingresso</label><input class="b" type="number" min="0" step="any" value="${defaults[i][1]}"></div></div>
+ <div class="formula"><span class="hint">uscita ÷ ingresso</span> = <b class="ratio">—</b></div>
+</div>`);
+const fmt=(n,d=9)=>Number.isFinite(n)?new Intl.NumberFormat("it-IT",{maximumFractionDigits:d}).format(n):"—";
+const expandedProjects=new Set();
+const APP_ICONS={light:"./rapportoTIA/AxisGear_Light_256.png",dark:"./rapportoTIA/AxisGear_Dark_256.png"};
+function currentAppIcon(){
+ return APP_ICONS[document.body.classList.contains("light")?"light":"dark"];
+}
+function speedValues(perRev,rpm,unit,mode){
+ const rawPerMin=perRev*rpm,rawPerSec=rawPerMin/60;
+ if(mode==="none")return{perMin:rawPerMin,perSec:rawPerSec,minUnit:"giri/min",secUnit:"giri/s",step:`${fmt(perRev,6)} × ${fmt(rpm,3)} = ${fmt(rawPerMin,6)} giri/min; ${fmt(rawPerMin,6)} ÷ 60 = ${fmt(rawPerSec,6)} giri/s`};
+ if(unit==="°")return{perMin:rawPerMin,perSec:rawPerSec,minUnit:"°/min",secUnit:"°/s",step:`${fmt(perRev,6)} °/giro × ${fmt(rpm,3)} = ${fmt(rawPerMin,6)} °/min; ${fmt(rawPerMin,6)} ÷ 60 = ${fmt(rawPerSec,6)} °/s`};
+ const toMm={mm:1,cm:10,m:1000}[unit]||1;
+ if(toMm)return{perMin:rawPerMin*toMm/1000,perSec:rawPerSec*toMm,minUnit:"m/min",secUnit:"mm/s",step:`${fmt(perRev,6)} ${unit}/giro × ${fmt(rpm,3)} = ${fmt(rawPerMin,6)} ${unit}/min → ${fmt(rawPerMin*toMm/1000,6)} m/min; ${fmt(rawPerSec*toMm,6)} mm/s`};
+ return{perMin:rawPerMin,perSec:rawPerSec,minUnit:`${unit}/min`,secUnit:`${unit}/s`,step:`${fmt(perRev,6)} × ${fmt(rpm,3)} = ${fmt(rawPerMin,6)} ${unit}/min; ${fmt(rawPerMin,6)} ÷ 60 = ${fmt(rawPerSec,6)} ${unit}/s`};
+}
+function normalizeUnit(unit){
+ return unit==="°"?"°":"mm";
+}
+function motionModeLabel(mode,unit){
+ if(mode==="screw")return unit==="°"?"Angolo per giro":"Passo vite";
+ return{none:"Nessuna conversione",diameter:"Diametro",circ:"Circonferenza"}[mode]||mode;
+}
+function updateType(stage){
+ const c=configs[stage.querySelector(".type").value];
+ stage.querySelector(".la").textContent=c.a;stage.querySelector(".lb").textContent=c.b;stage.querySelector(".hint").textContent=c.hint;
+}
+function clampCorrectionCount(value){
+ return Math.max(1,Math.min(50,Math.floor(+value||1)));
+}
+function getCorrectionRowsData(){
+ return [...document.querySelectorAll(".correctionRow")].map(row=>({
+  commanded:+row.querySelector(".commanded").value,
+  measured:+row.querySelector(".measured").value
+ }));
+}
+function ensureCorrectionRows(){
+ const input=document.querySelector("#correctionCount");
+ const wanted=clampCorrectionCount(input.value);
+ if(+input.value!==wanted)input.value=wanted;
+ const box=document.querySelector("#correctionRows");
+ const existing=getCorrectionRowsData();
+ if(box.children.length===wanted)return;
+ box.innerHTML="";
+ for(let i=0;i<wanted;i++){
+  const data=existing[i]||{commanded:1000,measured:i===0?1000.45:1000};
+  box.insertAdjacentHTML("beforeend",`
+   <div class="correctionRow" data-i="${i}">
+    <div class="idx">${i+1}</div>
+    <div><label>Quota comandata</label><input class="commanded" type="number" min="0" step="any" value="${data.commanded}"></div>
+    <div><label>Quota misurata</label><input class="measured" type="number" min="0" step="any" value="${data.measured}"></div>
+    <div class="rowOut"><span>Differenza</span><b class="rowError">—</b></div>
+    <div class="rowOut"><span>Fattore</span><b class="rowFactor">—</b></div>
+    <div class="rowOut"><span class="rowResultLabel">Risultato</span><b class="rowResult">—</b></div>
+   </div>`);
+ }
+}
+function deviationLimitValue(){
+ return Math.abs(+document.querySelector("#deviationLimit")?.value||0);
+}
+function chartTitleValue(){
+ return (document.querySelector("#chartTitle")?.value||document.querySelector("#axisName")?.value||"Asse").trim()||"Asse";
+}
+let currentErrorChart={points:[],unit:"",limit:0,title:"",svg:"",exportSvg:"",peakToPeak:NaN,minErr:NaN,maxErr:NaN,outCount:0};
+let currentErrorAnalysis={quality:"warn",type:"—",reliability:"—",residualMax:NaN,residualSpan:NaN,message:""};
+function updateErrorAnalysis(points,unit,limit){
+ const badge=document.querySelector("#analysisQuality"),typeEl=document.querySelector("#analysisType"),relEl=document.querySelector("#analysisReliability"),resEl=document.querySelector("#analysisResidual"),spanEl=document.querySelector("#analysisResidualSpan"),msgEl=document.querySelector("#analysisMessage");
+ const set=(quality,label,type,reliability,residualMax,residualSpan,message)=>{
+  currentErrorAnalysis={quality,type,reliability,residualMax,residualSpan,message};
+  if(badge){badge.className=`qualityBadge ${quality}`;badge.textContent=label}
+  if(typeEl)typeEl.textContent=type;
+  if(relEl)relEl.textContent=reliability;
+  if(resEl)resEl.innerHTML=Number.isFinite(residualMax)?`${fmt(residualMax,6)} <span class="u">${unit}</span>`:"—";
+  if(spanEl)spanEl.innerHTML=Number.isFinite(residualSpan)?`${fmt(residualSpan,6)} <span class="u">${unit}</span>`:"—";
+  if(msgEl)msgEl.textContent=message;
+ };
+ if(points.length<3){set("warn","Pochi dati","—","—",NaN,NaN,"Inserisci almeno 3 misure valide per distinguere errore di scala da andamento non lineare.");return}
+ const errors=points.map(p=>p.error),commanded=points.map(p=>p.commanded);
+ const avg=list=>list.reduce((s,v)=>s+v,0)/list.length;
+ const meanE=avg(errors),meanX=avg(commanded);
+ const span=Math.max(...errors)-Math.min(...errors),maxAbs=Math.max(...errors.map(Math.abs));
+ const avgFactor=avg(points.map(p=>p.measured/p.commanded));
+ const residuals=points.map(p=>p.measured/avgFactor-p.commanded);
+ const residualMax=Math.max(...residuals.map(Math.abs)),residualSpan=Math.max(...residuals)-Math.min(...residuals);
+ const sxx=commanded.reduce((s,x)=>s+(x-meanX)**2,0),syy=errors.reduce((s,e)=>s+(e-meanE)**2,0),sxy=points.reduce((s,p,i)=>s+(commanded[i]-meanX)*(errors[i]-meanE),0);
+ const r2=sxx>0&&syy>0?(sxy*sxy)/(sxx*syy):0;
+ const improvement=maxAbs>0?1-residualMax/maxAbs:0;
+ const shapeRatio=span>0?residualSpan/span:0;
+ let quality,label,type,reliability,message;
+ if(r2>.72&&improvement>.35){
+  quality="good";label="Correzione affidabile";type="Scala quasi lineare";reliability="Alta";
+  message="L’errore segue soprattutto una pendenza: la correzione del rapporto/spazio-giro è sensata e dovrebbe ridurre bene il residuo.";
+ }else if(shapeRatio<.65||improvement>.15){
+  quality="warn";label="Correzione utile";type=r2>.4?"Scala + residuo":"Non lineare moderato";reliability="Media";
+  message="La correzione migliora la media, ma resta una forma residua: dopo la taratura verifica di nuovo il grafico.";
+ }else{
+  quality="bad";label="Verifica meccanica";type="Non lineare / possibile S";reliability="Bassa";
+  message="L’andamento non sembra solo un errore di scala: correggere il rapporto sposta la media ma non elimina la forma. Controlla eccentricità, slittamento, gioco o misura.";
+ }
+ if(limit>0&&residualMax>limit){message+=` Residuo stimato oltre il limite ±${fmt(limit,3)} ${unit}.`}
+ set(quality,label,type,reliability,residualMax,residualSpan,message);
+}
+function buildErrorChartSvg(points,unit,limit,title,variant="web"){
+ const exportMode=variant==="export";
+ const cfg=exportMode
+  ?{w:2318,h:958,padL:175,padR:160,padT:200,padB:125,headFs:40,titleFs:60,scaleFs:30,limitInfoFs:28,axisFs:32,tickFs:34,limitFs:30,xFs:34,pointFs:36,pointW:104,pointH:50,circleR:15,lineW:7,gridW:3,axisW:4,zeroW:5,limitW:4,titleX:610,headX:68,topRight:68}
+  :{w:700,h:430,padL:78,padR:34,padT:88,padB:60,headFs:25,titleFs:40,scaleFs:22,limitInfoFs:19,axisFs:22,tickFs:23,limitFs:22,xFs:22,pointFs:24,pointW:92,pointH:34,circleR:9.5,lineW:4,gridW:1.2,axisW:1.5,zeroW:2.5,limitW:1.9,titleX:158,headX:22,topRight:22};
+ const {w,h,padL,padR,padT,padB}=cfg,plotW=w-padL-padR,plotH=h-padT-padB,mid=padT+plotH/2;
+ const maxAbs=Math.max(...points.map(p=>Math.abs(p.error)),limit,0.001),scale=maxAbs*1.15;
+ const x=i=>points.length===1?padL+plotW/2:padL+(i/(points.length-1))*plotW;
+ const y=error=>mid-(error/scale)*(plotH/2);
+ const tickValues=[scale,scale/2,0,-scale/2,-scale];
+ const grid=tickValues.map(v=>`<line ${v===0?`stroke="#ffc177" stroke-width="${cfg.zeroW}"`:`stroke="#29415f" stroke-width="${cfg.gridW}" opacity=".75"`} x1="${padL}" y1="${y(v)}" x2="${w-padR}" y2="${y(v)}"></line><text fill="#9fb4d1" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.tickFs}" font-weight="650" x="${padL-(exportMode?22:10)}" y="${y(v)+(exportMode?14:8)}" text-anchor="end">${fmt(v,3)}</text>`).join("");
+ const limits=limit>0?`<line stroke="#ff6f7d" stroke-width="${cfg.limitW}" stroke-dasharray="${exportMode?20:9} ${exportMode?18:8}" opacity=".82" x1="${padL}" y1="${y(limit)}" x2="${w-padR}" y2="${y(limit)}"></line><text fill="#ff6f7d" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.limitFs}" font-weight="650" x="${w-padR-(exportMode?12:0)}" y="${y(limit)-(exportMode?20:9)}" text-anchor="end">+${fmt(limit,3)}</text><line stroke="#ff6f7d" stroke-width="${cfg.limitW}" stroke-dasharray="${exportMode?20:9} ${exportMode?18:8}" opacity=".82" x1="${padL}" y1="${y(-limit)}" x2="${w-padR}" y2="${y(-limit)}"></line><text fill="#ff6f7d" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.limitFs}" font-weight="650" x="${w-padR-(exportMode?12:0)}" y="${y(-limit)+(exportMode?42:24)}" text-anchor="end">-${fmt(limit,3)}</text>`:"";
+ const path=points.map((p,i)=>`${i?"L":"M"} ${x(i).toFixed(2)} ${y(p.error).toFixed(2)}`).join(" ");
+ const pointStep=Math.ceil(points.length/(exportMode?30:20));
+ const xLabels=points.map((p,i)=>i%pointStep===0||i===points.length-1?`<text fill="#9fb4d1" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.xFs}" font-weight="650" x="${x(i)}" y="${h-(exportMode?38:26)}" text-anchor="middle">#${p.index}</text>`:"").join("");
+ const minErr=Math.min(...points.map(p=>p.error)),maxErr=Math.max(...points.map(p=>p.error));
+ const outCount=limit>0?points.filter(p=>Math.abs(p.error)>limit).length:0;
+ const peakToPeak=maxErr-minErr;
+ const dots=points.map((p,i)=>{
+  const out=limit>0&&Math.abs(p.error)>limit,cx=x(i),cy=y(p.error);
+  const showLabel=points.length<=20||Math.abs(p.error)===maxAbs||out;
+  const offsetUp=exportMode?54:28,offsetDown=exportMode?76:40;
+  const ly=Math.max(padT+(exportMode?58:30),Math.min(h-padB-(exportMode?28:14),cy+(p.error>=0?-offsetUp:offsetDown))),label=`${p.error>=0?"+":""}${fmt(p.error,3)}`;
+  return `<circle fill="${out?"#ff6f7d":"#69df8b"}" stroke="#0b1728" stroke-width="${exportMode?7:3.3}" cx="${cx}" cy="${cy}" r="${cfg.circleR}"><title>#${p.index}: ${p.error>=0?"+":""}${fmt(p.error,6)} ${unit}${out?" fuori limite":" entro limite"}</title></circle>${showLabel?`<rect x="${cx-cfg.pointW/2}" y="${ly-cfg.pointH+8}" width="${cfg.pointW}" height="${cfg.pointH}" rx="${exportMode?15:9}" fill="#0b1728" opacity=".82"></rect><text fill="#eef6ff" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.pointFs}" font-weight="650" x="${cx}" y="${ly}" text-anchor="middle">${label}</text>`:""}`;
+ }).join("");
+ const escapedTitle=escapeHtml(title);
+ const scaleText=`Scala ±${fmt(scale,2)} ${unit} · min ${fmt(minErr,3)} / max ${fmt(maxErr,3)} · Δ ${fmt(peakToPeak,3)}`;
+ const limitText=limit>0?`limite ±${fmt(limit,3)} · fuori limite ${outCount}/${points.length}`:"";
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Grafico a linee degli errori di posizione con zero al centro e limiti di devianza"><rect width="${w}" height="${h}" rx="${exportMode?52:18}" fill="#0b1728" stroke="#29415f" stroke-width="${exportMode?4:1.2}"></rect><title>${escapedTitle}</title><desc>Linea centrale a zero, linee limite positiva e negativa; punti verdi entro limite e rossi fuori limite.</desc><text fill="#eef6ff" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.headFs}" font-weight="650" x="${cfg.headX}" y="${exportMode?86:39}">Grafico errori</text><text fill="#eef6ff" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.titleFs}" font-weight="650" x="${cfg.titleX}" y="${exportMode?120:58}">${escapedTitle}</text><text fill="#9fb4d1" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.scaleFs}" font-weight="650" x="${w-cfg.topRight}" y="${exportMode?76:36}" text-anchor="end">${scaleText}</text><text fill="#9fb4d1" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.limitInfoFs}" font-weight="650" x="${w-cfg.topRight}" y="${exportMode?126:64}" text-anchor="end">${limitText}</text><text fill="#9fb4d1" font-family="Segoe UI, Arial, sans-serif" font-size="${cfg.axisFs}" font-weight="650" x="${padL}" y="${padT-(exportMode?30:14)}">Errore (${unit})</text>${grid}${limits}<line stroke="#49627e" stroke-width="${cfg.axisW}" x1="${padL}" y1="${padT}" x2="${padL}" y2="${h-padB}"></line><line stroke="#49627e" stroke-width="${cfg.axisW}" x1="${padL}" y1="${h-padB}" x2="${w-padR}" y2="${h-padB}"></line>${points.length>1?`<path fill="none" stroke="#4d8dff" stroke-width="${cfg.lineW}" stroke-linejoin="round" stroke-linecap="round" d="${path}"></path>`:""}${dots}${xLabels}</svg>`;
+ return{svg,peakToPeak,minErr,maxErr,outCount};
+}
+function renderErrorChart(points,unit,limit=0){
+ const box=document.querySelector("#errorChart"),range=document.querySelector("#errorChartRange");
+ const title=chartTitleValue();
+ if(!box)return;
+  if(!points.length){
+   box.innerHTML=`<div class="errorChartEmpty">Inserisci almeno una correzione valida per visualizzare il grafico.</div>`;
+   if(range)range.textContent=limit>0?`Limite ±${fmt(limit,3)} ${unit}`:"Zero al centro";
+   currentErrorChart={points:[],unit,limit,title,svg:"",exportSvg:"",peakToPeak:NaN,minErr:NaN,maxErr:NaN,outCount:0};
+   return;
+  }
+ const webChart=buildErrorChartSvg(points,unit,limit,title,"web");
+ const exportChart=buildErrorChartSvg(points,unit,limit,title,"export");
+ const {svg,peakToPeak,minErr,maxErr,outCount}=webChart;
+ if(range)range.textContent=`Δ min/max ${fmt(peakToPeak,3)} ${unit} · limite ±${fmt(limit,3)} · fuori limite ${outCount}/${points.length}`;
+ currentErrorChart={points,unit,limit,title,svg,exportSvg:exportChart.svg,peakToPeak,minErr,maxErr,outCount};
+ box.innerHTML=svg;
+}
+function calculate(){
+ ensureCorrectionRows();
+ let total=1,valid=true,used=[],stepHtml="";
+ document.querySelectorAll(".stage").forEach((s,i)=>{
+  updateType(s);const on=s.querySelector(".enabled").checked;s.classList.toggle("off",!on);
+  if(!on){s.querySelector(".ratio").textContent="escluso";return}
+  const a=+s.querySelector(".a").value,b=+s.querySelector(".b").value,r=a/b;
+  if(!(a>0&&b>0))valid=false;
+  s.querySelector(".ratio").textContent=fmt(r);total*=r;used.push({i:i+1,a,b,r});
+ });
+ document.querySelector("#warning").style.display=valid?"none":"block";
+ if(!valid||!used.length)total=NaN;
+  const mode=document.querySelector('[name="motion"]:checked').value, mv=+document.querySelector("#motionValue").value;
+  const rpm=+document.querySelector("#rpm").value,unit=normalizeUnit(document.querySelector("#unit").value);
+  document.querySelector("#unit").value=unit;
+ const box=document.querySelector("#motionValueBox"),lab=document.querySelector("#motionLabel");
+ box.style.visibility=mode==="none"?"hidden":"visible";
+  lab.textContent=mode==="screw"?(unit==="°"?`Angolo per giro (${unit}/giro)`:`Passo vite (${unit}/giro)`):mode==="diameter"?`Diametro (${unit})`:`Circonferenza (${unit})`;
+ let dev=mode==="none"?1:mode==="diameter"?Math.PI*mv:mv;
+ const perRev=total*dev,speed=speedValues(perRev,rpm,unit,mode),tia=1000/total;
+ document.querySelector("#total").textContent=fmt(total);
+ document.querySelector("#reduction").innerHTML=`1 : ${fmt(1/total,6)}`;
+ document.querySelector("#tia").textContent=fmt(tia,3);
+ document.querySelector("#development").innerHTML=mode==="none"?"1 giro":`${fmt(dev,6)} <span class="u">${unit}</span>`;
+ document.querySelector("#perRev").innerHTML=`${fmt(perRev,6)} <span class="u">${mode==="none"?"giri":unit}</span>`;
+ document.querySelector("#rpmEcho").innerHTML=`${fmt(rpm,3)} <span class="u">rpm</span>`;
+ document.querySelector("#perMin").innerHTML=`${fmt(speed.perMin,6)} <span class="u">${speed.minUnit}</span>`;
+ document.querySelector("#perSec").innerHTML=`${fmt(speed.perSec,6)} <span class="u">${speed.secUnit}</span>`;
+ used.forEach(x=>stepHtml+=`<div class="step"><span class="dot">${x.i}</span><div>Rapporto ${x.i}<small>Numeratore ÷ denominatore</small></div><div class="eq">${fmt(x.a)} ÷ ${fmt(x.b)} = ${fmt(x.r)}</div></div>`);
+ stepHtml+=`<div class="step"><span class="dot">Σ</span><div>Rapporto totale<small>Prodotto degli stadi attivi</small></div><div class="eq">${used.map(x=>fmt(x.r,6)).join(" × ")} = ${fmt(total)}</div></div>`;
+ if(mode==="diameter")stepHtml+=`<div class="step"><span class="dot">π</span><div>Circonferenza<small>Diametro × π</small></div><div class="eq">${fmt(mv)} × π = ${fmt(dev,6)} ${unit}</div></div>`;
+ if(mode!=="none")stepHtml+=`<div class="step"><span class="dot">↔</span><div>Spostamento per giro motore<small>Rapporto totale × sviluppo</small></div><div class="eq">${fmt(total,6)} × ${fmt(dev,6)} = ${fmt(perRev,6)} ${unit}</div></div>`;
+ stepHtml+=`<div class="step"><span class="dot">V</span><div>Velocità asse alla V motore impostata<small>${unit==="°"?"Asse rotativo: °/min e °/s":"Asse lineare: m/min e mm/s"}</small></div><div class="eq">${speed.step}</div></div>`;
+ stepHtml+=`<div class="step"><span class="dot">T</span><div>Valore TIA Portal<small>1000 ÷ rapporto totale</small></div><div class="eq">1000 ÷ ${fmt(total,9)} = ${fmt(tia,3)}</div></div>`;
+ const calOn=document.querySelector("#calEnabled").checked;
+ document.querySelector("#calibration").classList.toggle("off",!calOn);
+ if(calOn){
+  const deviationLimit=deviationLimitValue();
+  const motionNames={screw:"passo vite",diameter:"diametro",circ:"circonferenza"};
+  const correctingMotion=mode!=="none";
+  const currentValue=correctingMotion?mv:tia;
+  const correctedUnit=correctingMotion?` ${unit}`:"";
+  const correctedName=correctingMotion?motionNames[mode]:"TIA Ratio × 1000";
+  const showCorrectedDevelopment=mode==="diameter";
+  document.querySelector("#correctedDevelopmentBox").classList.toggle("hidden",!showCorrectedDevelopment);
+  const rows=[...document.querySelectorAll(".correctionRow")],validCorrections=[];
+  rows.forEach((row,index)=>{
+   const commanded=+row.querySelector(".commanded").value,measured=+row.querySelector(".measured").value;
+   const calValid=commanded>0&&measured>0&&currentValue>0&&Number.isFinite(currentValue);
+   const error=measured-commanded,percent=error/commanded*100,factor=measured/commanded,corrected=currentValue*factor,correctedDevelopment=Math.PI*corrected;
+   row.querySelector(".rowError").innerHTML=calValid?`${error>=0?"+":""}${fmt(error,6)} ${unit}`:"—";
+   row.querySelector(".rowFactor").textContent=calValid?fmt(factor,9):"—";
+   row.querySelector(".rowResultLabel").textContent=showCorrectedDevelopment?"Diametro / sviluppo":correctedName;
+   row.querySelector(".rowResult").innerHTML=calValid?`${fmt(corrected,6)}${correctedUnit}${showCorrectedDevelopment?`<br>${fmt(correctedDevelopment,6)} ${unit}`:""}`:"—";
+   if(calValid)validCorrections.push({index:index+1,commanded,measured,error,percent,factor,corrected,correctedDevelopment});
+  });
+  const avg=list=>list.reduce((sum,item)=>sum+item,0)/list.length;
+  const count=validCorrections.length;
+  const avgError=count?avg(validCorrections.map(x=>x.error)):NaN,avgPercent=count?avg(validCorrections.map(x=>x.percent)):NaN,avgFactor=count?avg(validCorrections.map(x=>x.factor)):NaN,avgCorrected=count?avg(validCorrections.map(x=>x.corrected)):NaN,avgDevelopment=count?avg(validCorrections.map(x=>x.correctedDevelopment)):NaN;
+  document.querySelector("#positionError").innerHTML=count?`${avgError>=0?"+":""}${fmt(avgError,6)} <span class="u">${unit}</span>`:"—";
+  document.querySelector("#percentError").textContent=count?`${avgPercent>=0?"+":""}${fmt(avgPercent,6)} %`:"—";
+  document.querySelector("#correctionFactor").textContent=count?fmt(avgFactor,9):"—";
+  document.querySelector("#correctedLabel").textContent=`Media ${correctedName}`;
+  document.querySelector("#correctedValue").innerHTML=count?`${fmt(avgCorrected,6)}<span class="u">${correctedUnit}</span>`:"—";
+  document.querySelector("#correctedDevelopment").innerHTML=count&&showCorrectedDevelopment?`${fmt(avgDevelopment,6)}<span class="u">${unit}</span>`:"—";
+  document.querySelector("#calFormula").innerHTML=count?`${count} correzioni valide. Media ${correctedName}: <b>${fmt(avgCorrected,6)}${correctedUnit}</b>${showCorrectedDevelopment?`; sviluppo medio = <b>${fmt(avgDevelopment,6)} ${unit}</b>`:""}`:"Inserisci almeno una correzione valida con quote maggiori di zero.";
+  updateErrorAnalysis(validCorrections,unit,deviationLimit);
+  renderErrorChart(validCorrections,unit,deviationLimit);
+  if(count)stepHtml+=`<div class="step"><span class="dot">C</span><div>Correzione media ${correctedName}<small>Media dei risultati validi (${count}/${rows.length})${correctingMotion?"; rapporto meccanico invariato":""}</small></div><div class="eq">${validCorrections.map(x=>`#${x.index}: ${fmt(x.corrected,6)}${correctedUnit}`).join(" ; ")} → media = ${fmt(avgCorrected,6)}${correctedUnit}${showCorrectedDevelopment?`; sviluppo medio = ${fmt(avgDevelopment,6)} ${unit}`:""}</div></div>`;
+ }else{
+  updateErrorAnalysis([],unit,deviationLimitValue());
+  renderErrorChart([],unit,deviationLimitValue());
+ }
+ document.querySelector("#steps").innerHTML=stepHtml;
+}
+const STORAGE_KEY="RapportoTIA_records_v1";
+const QUEUE_KEY="RapportoTIA_pending_v1";
+const THEME_KEY="RapportoTIA_theme";
+const API_URL="./rapportoTIA/api.php";
+let recordsCache=[];
+let activeProject=null;
+let activeAxisIndex=0;
+async function parseApiResponse(response){
+ let data={};
+ try{data=await response.json()}catch{}
+ if(!response.ok||!data.ok)throw new Error(data.error||"Errore del servizio");
+ return data;
+}
+function clearLocalArchive(){
+ localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(QUEUE_KEY);recordsCache=[];
+}
+function emptyConfig(){
+ return{
+  stages:[
+   {enabled:true,type:"reducer",a:1,b:5},
+   {enabled:false,type:"reducer",a:12,b:14},
+   {enabled:false,type:"reducer",a:28,b:36}
+  ],
+  motion:{mode:"none",value:1,rpm:1000,unit:"mm"},
+  calibration:{enabled:false,count:1,deviationLimit:0.1,chartTitle:"",corrections:[{commanded:1000,measured:1000.45}]}
+ };
+}
+function cloneData(data){return JSON.parse(JSON.stringify(data))}
+function normalizeProject(item){
+ if(item&&Array.isArray(item.axes)){
+  return{
+   name:String(item.name||"Progetto senza nome").trim()||"Progetto senza nome",
+   savedAt:item.savedAt||new Date().toISOString(),
+   axes:item.axes.length?item.axes.map((axis,i)=>({
+    name:String(axis.name||`Asse ${i+1}`).trim()||`Asse ${i+1}`,
+    config:axis.config&&axis.config.stages?axis.config:emptyConfig()
+   })):[{name:"Asse 1",config:emptyConfig()}]
+  };
+ }
+ if(item&&Array.isArray(item.stages)){
+  const config=cloneData(item);
+  delete config.name;delete config.savedAt;
+  return{name:String(item.name||"Progetto importato").trim()||"Progetto importato",savedAt:item.savedAt||new Date().toISOString(),axes:[{name:item.axisName||"Asse 1",config}]};
+ }
+ return{name:"Progetto senza nome",savedAt:new Date().toISOString(),axes:[{name:"Asse 1",config:emptyConfig()}]};
+}
+function normalizeProjects(records){return (Array.isArray(records)?records:[]).map(normalizeProject)}
+function readRecords(){
+ return recordsCache;
+}
+function writeRecords(records){
+ recordsCache=normalizeProjects(records);
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(recordsCache));
+}
+function readQueue(){
+ try{return JSON.parse(localStorage.getItem(QUEUE_KEY)||"[]")}catch{return []}
+}
+function writeQueue(queue){
+ localStorage.setItem(QUEUE_KEY,JSON.stringify(queue));
+}
+function queueOperation(payload){
+ const queue=readQueue();
+ queue.push({...payload,queuedAt:new Date().toISOString()});
+ writeQueue(queue);
+}
+function applyLocal(payload){
+ const records=[...readRecords()];
+ if(payload.action==="save"){
+  const record=payload.record,index=records.findIndex(r=>r.name.toLocaleLowerCase("it")===record.name.toLocaleLowerCase("it"));
+  if(index>=0)records[index]=record;else records.push(record);
+ }else if(payload.action==="delete"){
+  const name=payload.name.toLocaleLowerCase("it");
+  writeRecords(records.filter(r=>r.name.toLocaleLowerCase("it")!==name));return;
+ }else if(payload.action==="import"){
+  payload.records.forEach(record=>{
+   const index=records.findIndex(r=>r.name.toLocaleLowerCase("it")===record.name.toLocaleLowerCase("it"));
+   if(index>=0)records[index]=record;else records.push(record);
+  });
+ }
+ writeRecords(records);
+}
+async function apiRequest(payload=null){
+ const options=payload
+  ?{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json","X-RapportoTIA-Request":"1"},body:JSON.stringify(payload)}
+  :{cache:"no-store",credentials:"same-origin"};
+ const response=await fetch(API_URL,options);
+ return parseApiResponse(response);
+}
+async function flushQueue(){
+ let queue=readQueue(),sent=0;
+ while(queue.length){
+  const operation={...queue[0]};delete operation.queuedAt;
+  await apiRequest(operation);
+  queue.shift();writeQueue(queue);sent++;
+ }
+ return sent;
+}
+async function syncFromNas(selectedName=""){
+ try{
+  const sent=await flushQueue(),data=await apiRequest();
+  writeRecords(data.records||[]);refreshRecordList(selectedName);
+  showStatus(`${sent?sent+" modifiche offline sincronizzate. ":""}Archivio NAS connesso: ${recordsCache.length} configurazioni condivise.`,"ok");
+ return true;
+  }catch(error){
+   try{writeRecords(JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"))}catch{recordsCache=[]}
+  refreshRecordList(selectedName);
+  const pending=readQueue().length;
+  showStatus(`Modalità offline: copia locale disponibile${pending?`; ${pending} modifiche in attesa di sincronizzazione`:""}.`,"error");
+  return false;
+ }
+}
+function showStatus(message,type=""){
+ const el=document.querySelector("#saveStatus");
+ el.textContent=message;el.className=`saveStatus ${type}`;
+}
+function escapeHtml(value){
+ return String(value??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;");
+}
+function axisOverview(axis,index){
+ const cfg=axis?.config&&axis.config.stages?axis.config:emptyConfig();
+ const activeStages=(cfg.stages||[]).filter(stage=>stage.enabled);
+ let total=1,valid=activeStages.length>0;
+ activeStages.forEach(stage=>{
+  const a=+stage.a,b=+stage.b;
+  if(a>0&&b>0)total*=a/b;else valid=false;
+ });
+ const motion=cfg.motion||{},mode=motion.mode||"none",unit=normalizeUnit(motion.unit||"mm"),mv=+(motion.value??1),rpm=+(motion.rpm??0);
+ const development=mode==="none"?1:mode==="diameter"?Math.PI*mv:mv;
+ const perRev=valid?total*development:NaN;
+ const speed=Number.isFinite(perRev)?speedValues(perRev,rpm,unit,mode):{perMin:NaN,perSec:NaN,minUnit:"",secUnit:""};
+ const tia=valid?1000/total:NaN;
+ const modeLabel=motionModeLabel(mode,unit);
+ const movementUnit=mode==="none"?"giri":unit;
+ return{
+  name:axis?.name||`Asse ${index+1}`,
+  stages:activeStages.length,
+  modeLabel,
+  movementUnit,
+  total,
+  tia,
+  development,
+  perRev,
+  speed
+ };
+}
+function renderProjectOverview(){
+ const box=document.querySelector("#projectOverview");
+ if(!box)return;
+ const records=[...readRecords()].sort((a,b)=>a.name.localeCompare(b.name,"it"));
+ const current=document.querySelector("#recordName")?.value.trim()||"";
+ if(!records.length){
+  box.innerHTML=`<div class="projectEmpty">Nessun progetto salvato. Inserisci un nome e premi “Salva progetto”: qui comparirà la panoramica.</div>`;
+  return;
+ }
+ box.innerHTML=records.map(project=>{
+   const axes=project.axes||[];
+   const key=encodeURIComponent(project.name);
+   const expanded=expandedProjects.has(project.name);
+   const chips=axes.length?axes.map((axis,index)=>{
+    const s=axisOverview(axis,index);
+    return `<div class="axisChip"><b>${escapeHtml(s.name)}</b><div class="axisMeta">${s.stages} stadi attivi · ${escapeHtml(s.modeLabel)}</div><div>Rapporto ${fmt(s.total,6)} · TIA×1000 ${fmt(s.tia,3)}</div><div>${fmt(s.perRev,6)} ${escapeHtml(s.movementUnit)}/giro motore · ${fmt(s.speed.perMin,3)} ${escapeHtml(s.speed.minUnit)} · ${fmt(s.speed.perSec,3)} ${escapeHtml(s.speed.secUnit)}</div></div>`;
+   }).join(""):`<div class="axisChip">Nessun asse nel progetto</div>`;
+   return `<div class="projectCard ${project.name===current?"active":""}" data-project="${key}"><div class="projectTitle"><strong>${escapeHtml(project.name)}</strong><span class="projectCount">${axes.length} assi</span></div><button type="button" class="projectToggle" data-toggle-project="${key}" aria-expanded="${expanded}"><span>${expanded?"Nascondi assi":"Mostra assi"}</span><span class="chev">${expanded?"▾":"▸"}</span></button><div class="axisSummary ${expanded?"":"collapsed"}">${chips}</div></div>`;
+  }).join("");
+}
+function refreshRecordList(selectedName=""){
+ const list=document.querySelector("#recordList"),records=readRecords();
+ list.innerHTML=records.length?records
+  .sort((a,b)=>a.name.localeCompare(b.name,"it"))
+  .map(r=>`<option value="${encodeURIComponent(r.name)}">${escapeHtml(r.name)}</option>`)
+  .join(""):`<option value="">Nessun progetto salvato</option>`;
+ if(selectedName)list.value=encodeURIComponent(selectedName);
+ renderProjectOverview();
+}
+function ensureActiveProject(){
+ if(!activeProject)activeProject={name:document.querySelector("#recordName").value.trim()||"Nuovo progetto",savedAt:new Date().toISOString(),axes:[{name:"Asse 1",config:emptyConfig()}]};
+ if(!activeProject.axes?.length)activeProject.axes=[{name:"Asse 1",config:emptyConfig()}];
+ if(activeAxisIndex<0||activeAxisIndex>=activeProject.axes.length)activeAxisIndex=0;
+}
+function refreshAxisList(){
+ ensureActiveProject();
+ const list=document.querySelector("#axisList");
+ list.innerHTML=activeProject.axes.map((axis,i)=>`<option value="${i}">${escapeHtml(axis.name||`Asse ${i+1}`)}</option>`).join("");
+ list.value=String(activeAxisIndex);
+ document.querySelector("#axisName").value=activeProject.axes[activeAxisIndex].name||`Asse ${activeAxisIndex+1}`;
+}
+function collectAxisConfig(){
+ return{
+  stages:[...document.querySelectorAll(".stage")].map(s=>({
+   enabled:s.querySelector(".enabled").checked,
+   type:s.querySelector(".type").value,
+   a:+s.querySelector(".a").value,
+   b:+s.querySelector(".b").value
+  })),
+  motion:{
+   mode:document.querySelector('[name="motion"]:checked').value,
+   value:+document.querySelector("#motionValue").value,
+   rpm:+document.querySelector("#rpm").value,
+   unit:normalizeUnit(document.querySelector("#unit").value)
+  },
+  calibration:{
+   enabled:document.querySelector("#calEnabled").checked,
+   count:clampCorrectionCount(document.querySelector("#correctionCount").value),
+   deviationLimit:deviationLimitValue(),
+   chartTitle:chartTitleValue(),
+   corrections:getCorrectionRowsData()
+  }
+ };
+}
+function saveCurrentAxisToMemory(){
+ ensureActiveProject();
+ activeProject.name=document.querySelector("#recordName").value.trim()||activeProject.name||"Nuovo progetto";
+ activeProject.savedAt=new Date().toISOString();
+ activeProject.axes[activeAxisIndex].name=document.querySelector("#axisName").value.trim()||`Asse ${activeAxisIndex+1}`;
+ activeProject.axes[activeAxisIndex].config=collectAxisConfig();
+ refreshAxisList();
+}
+function collectData(){
+ saveCurrentAxisToMemory();
+ return cloneData(activeProject);
+}
+function loadAxisConfig(config){
+ const data=config&&config.stages?config:emptyConfig();
+ document.querySelectorAll(".stage").forEach((s,i)=>{
+  const d=data.stages?.[i];if(!d)return;
+  s.querySelector(".enabled").checked=!!d.enabled;
+  s.querySelector(".type").value=d.type||"reducer";
+  s.querySelector(".a").value=d.a;
+  s.querySelector(".b").value=d.b;
+ });
+ const motion=data.motion||{};
+ const radio=document.querySelector(`[name="motion"][value="${motion.mode||"none"}"]`);
+ if(radio)radio.checked=true;
+ document.querySelector("#motionValue").value=motion.value??1;
+ document.querySelector("#rpm").value=motion.rpm??1000;
+ document.querySelector("#unit").value=normalizeUnit(motion.unit||"mm");
+ const cal=data.calibration||{};
+ document.querySelector("#calEnabled").checked=!!cal.enabled;
+ const corrections=Array.isArray(cal.corrections)&&cal.corrections.length?cal.corrections:[{commanded:cal.commanded??1000,measured:cal.measured??1000.45}];
+ document.querySelector("#correctionCount").value=clampCorrectionCount(cal.count||corrections.length);
+ document.querySelector("#deviationLimit").value=cal.deviationLimit??0.1;
+ document.querySelector("#chartTitle").value=cal.chartTitle||document.querySelector("#axisName").value||"Asse";
+ ensureCorrectionRows();
+ document.querySelectorAll(".correctionRow").forEach((row,i)=>{
+  const correction=corrections[i];if(!correction)return;
+  row.querySelector(".commanded").value=correction.commanded??1000;
+  row.querySelector(".measured").value=correction.measured??1000;
+ });
+ calculate();
+}
+function loadData(data){
+ activeProject=normalizeProject(data);
+ activeAxisIndex=0;
+ document.querySelector("#recordName").value=activeProject.name||"";
+ refreshAxisList();
+ loadAxisConfig(activeProject.axes[activeAxisIndex].config);
+}
+document.querySelector("#saveRecord").addEventListener("click",async()=>{
+ const data=collectData();
+ if(!data.name){showStatus("Inserisci un nome per il progetto.","error");document.querySelector("#recordName").focus();return}
+ const operation={action:"save",record:data};
+ try{
+  await flushQueue();const result=await apiRequest(operation);
+  writeRecords(result.records||[]);refreshRecordList(data.name);
+  showStatus(result.updated?`Progetto “${data.name}” aggiornato sul NAS.`:`Progetto “${data.name}” salvato sul NAS.`,"ok");
+}catch{
+  applyLocal(operation);queueOperation(operation);refreshRecordList(data.name);
+  showStatus(`Progetto “${data.name}” salvato offline; sarà sincronizzato automaticamente.`,"error");
+ }
+});
+document.querySelector("#openRecord").addEventListener("click",()=>{
+ const value=document.querySelector("#recordList").value;
+ if(!value){showStatus("Non ci sono progetti da aprire.","error");return}
+ const name=decodeURIComponent(value),data=readRecords().find(r=>r.name===name);
+ if(!data){showStatus("Progetto non trovato.","error");refreshRecordList();return}
+ loadData(data);refreshRecordList(data.name);showStatus(`Progetto “${data.name}” aperto.`,"ok");
+});
+document.querySelector("#projectOverview").addEventListener("click",event=>{
+ const toggle=event.target.closest("[data-toggle-project]");
+ if(toggle){
+  event.stopPropagation();
+  const name=decodeURIComponent(toggle.dataset.toggleProject||"");
+  if(expandedProjects.has(name))expandedProjects.delete(name);else expandedProjects.add(name);
+  renderProjectOverview();
+  return;
+ }
+ const card=event.target.closest(".projectCard");
+ if(!card)return;
+ const name=decodeURIComponent(card.dataset.project||""),data=readRecords().find(r=>r.name===name);
+ if(!data){showStatus("Progetto non trovato nella panoramica.","error");refreshRecordList();return}
+ loadData(data);refreshRecordList(data.name);showStatus(`Progetto “${data.name}” aperto dalla panoramica.`,"ok");
+});
+document.querySelector("#deleteRecord").addEventListener("click",async()=>{
+ const value=document.querySelector("#recordList").value;
+ if(!value){showStatus("Non ci sono progetti da eliminare.","error");return}
+ const name=decodeURIComponent(value);
+ if(!confirm(`Eliminare definitivamente il progetto “${name}” e tutti i suoi assi?`))return;
+ const operation={action:"delete",name};
+ try{
+  await flushQueue();const result=await apiRequest(operation);
+  writeRecords(result.records||[]);refreshRecordList();
+  if(document.querySelector("#recordName").value.trim()===name){activeProject=null;document.querySelector("#recordName").value="";loadData({name:"Nuovo progetto",axes:[{name:"Asse 1",config:emptyConfig()}]})}
+  showStatus(`Progetto “${name}” eliminato dal NAS.`,"ok");
+}catch{
+  applyLocal(operation);queueOperation(operation);refreshRecordList();
+  if(document.querySelector("#recordName").value.trim()===name){activeProject=null;document.querySelector("#recordName").value="";loadData({name:"Nuovo progetto",axes:[{name:"Asse 1",config:emptyConfig()}]})}
+  showStatus(`Progetto “${name}” eliminato offline; la cancellazione sarà sincronizzata.`,"error");
+ }
+});
+document.querySelector("#newProject").addEventListener("click",()=>{
+ if(!confirm("Creare un nuovo progetto? Le modifiche non salvate del progetto corrente resteranno solo in memoria finché non salvi."))return;
+ loadData({name:"Nuovo progetto",axes:[{name:"Asse 1",config:emptyConfig()}]});
+ renderProjectOverview();
+ showStatus("Nuovo progetto creato. Inserisci il nome e salva quando pronto.","ok");
+});
+document.querySelector("#axisName").addEventListener("input",()=>{
+ ensureActiveProject();
+ activeProject.axes[activeAxisIndex].name=document.querySelector("#axisName").value.trim()||`Asse ${activeAxisIndex+1}`;
+ refreshAxisList();
+});
+document.querySelector("#saveAxis").addEventListener("click",()=>{
+ saveCurrentAxisToMemory();
+ calculate();
+ renderProjectOverview();
+ const axisName=activeProject.axes[activeAxisIndex].name||`Asse ${activeAxisIndex+1}`;
+ showStatus(`Asse “${axisName}” aggiornato nel progetto. Premi “Salva progetto” per scrivere sul NAS.`,"ok");
+});
+document.querySelector("#openAxis").addEventListener("click",()=>{
+ const selected=+document.querySelector("#axisList").value||0;
+ saveCurrentAxisToMemory();
+ activeAxisIndex=selected;
+ refreshAxisList();
+ loadAxisConfig(activeProject.axes[activeAxisIndex].config);
+ showStatus(`Asse “${activeProject.axes[activeAxisIndex].name}” aperto.`,"ok");
+});
+document.querySelector("#axisList").addEventListener("change",()=>{
+ document.querySelector("#openAxis").click();
+});
+document.querySelector("#newAxis").addEventListener("click",()=>{
+ saveCurrentAxisToMemory();
+ activeProject.axes.push({name:`Asse ${activeProject.axes.length+1}`,config:emptyConfig()});
+ activeAxisIndex=activeProject.axes.length-1;
+ refreshAxisList();
+ loadAxisConfig(activeProject.axes[activeAxisIndex].config);
+ showStatus("Nuovo asse aggiunto al progetto. Ricordati di salvare il progetto.","ok");
+});
+document.querySelector("#duplicateAxis").addEventListener("click",()=>{
+ saveCurrentAxisToMemory();
+ const source=activeProject.axes[activeAxisIndex];
+ activeProject.axes.push({name:`${source.name} copia`,config:cloneData(source.config)});
+ activeAxisIndex=activeProject.axes.length-1;
+ refreshAxisList();
+ loadAxisConfig(activeProject.axes[activeAxisIndex].config);
+ showStatus("Asse duplicato. Ricordati di salvare il progetto.","ok");
+});
+document.querySelector("#deleteAxis").addEventListener("click",()=>{
+ ensureActiveProject();
+ if(activeProject.axes.length<=1){showStatus("Il progetto deve contenere almeno un asse.","error");return}
+ const axisName=activeProject.axes[activeAxisIndex].name;
+ if(!confirm(`Eliminare l’asse “${axisName}” dal progetto?`))return;
+ activeProject.axes.splice(activeAxisIndex,1);
+ activeAxisIndex=Math.max(0,activeAxisIndex-1);
+ refreshAxisList();
+ loadAxisConfig(activeProject.axes[activeAxisIndex].config);
+ showStatus(`Asse “${axisName}” eliminato. Ricordati di salvare il progetto.`,"ok");
+});
+function downloadBlob(blob,filename){
+ const url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download=filename;
+ link.style.display="none";
+ document.body.appendChild(link);link.click();link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function safeFileName(value){
+ return (value||"RapportoTIA").replace(/[\\/:*?"<>|]+/g,"_").trim()||"RapportoTIA";
+}
+function chartSvgString(){
+ calculate();
+ return currentErrorChart.exportSvg||currentErrorChart.svg||"";
+}
+function svgToDataUrl(svg,mime="image/png",quality=.92,targetWidth=2318,targetHeight=958){
+ return new Promise((resolve,reject)=>{
+  if(!svg){reject(new Error("Grafico non disponibile"));return}
+  const img=new Image();
+  const url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
+  img.onload=()=>{
+   const canvas=document.createElement("canvas");
+   canvas.width=targetWidth||img.naturalWidth||1600;canvas.height=targetHeight||img.naturalHeight||900;
+   const ctx=canvas.getContext("2d");
+   ctx.drawImage(img,0,0,canvas.width,canvas.height);
+   URL.revokeObjectURL(url);
+   resolve({dataUrl:canvas.toDataURL(mime,quality),width:canvas.width,height:canvas.height});
+  };
+  img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Impossibile esportare il grafico"))};
+  img.src=url;
+ });
+}
+async function exportChartPng(){
+ const svg=chartSvgString();
+ if(!svg){showStatus("Attiva la correzione e inserisci almeno una misura valida prima di esportare il grafico.","error");return}
+ try{
+  const image=await svgToDataUrl(svg,"image/png",.95,2318,958);
+  const bytes=atob(image.dataUrl.split(",")[1]);
+  const buffer=new Uint8Array(bytes.length);
+  for(let i=0;i<bytes.length;i++)buffer[i]=bytes.charCodeAt(i);
+  const base=safeFileName(`${document.querySelector("#recordName").value}_${document.querySelector("#axisName").value}_${chartTitleValue()}`);
+  downloadBlob(new Blob([buffer],{type:"image/png"}),`${base}_grafico-errori.png`);
+  showStatus("Grafico esportato in PNG.","ok");
+ }catch(error){showStatus(error.message||"Impossibile esportare il grafico PNG.","error")}
+}
+document.querySelector("#exportChartPng").addEventListener("click",exportChartPng);
+document.querySelector("#exportJson").addEventListener("click",async()=>{
+ const records=readRecords();
+ if(!records.length){showStatus("Non ci sono record da esportare.","error");return}
+ const payload={
+  application:"RapportoTIA",
+  version:2,
+  exportedAt:new Date().toISOString(),
+  projects:records
+ };
+ const date=new Date().toISOString().slice(0,10);
+ const filename=`RapportoTIA_configurazioni_${date}.json`;
+ const file=new File([JSON.stringify(payload,null,2)],filename,{type:"application/json"});
+ try{
+  if(navigator.share&&navigator.canShare?.({files:[file]})){
+   await navigator.share({title:"Configurazioni RapportoTIA",files:[file]});
+   showStatus(`${records.length} configurazioni condivise o salvate.`,"ok");
+  }else{
+   downloadBlob(file,filename);
+   showStatus(`${records.length} configurazioni esportate nel file JSON.`,"ok");
+  }
+ }catch(error){
+  if(error?.name==="AbortError"){showStatus("Esportazione annullata.","error");return}
+  downloadBlob(file,filename);
+  showStatus(`${records.length} configurazioni esportate nel file JSON.`,"ok");
+ }
+});
+function pdfAscii(text){
+ return String(text??"")
+  .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+  .replaceAll("×","x").replaceAll("÷","/").replaceAll("π","pi").replaceAll("→","->")
+  .replaceAll("↔","<->").replaceAll("Σ","Tot").replaceAll("°"," deg")
+  .replace(/[“”]/g,'"').replace(/[’]/g,"'").replace(/[^\x20-\x7E]/g," ")
+  .replace(/\s+/g," ").trim();
+}
+function pdfEscape(text){
+ return pdfAscii(text).replaceAll("\\","\\\\").replaceAll("(","\\(").replaceAll(")","\\)");
+}
+function wrapPdfLine(line,max=92){
+ const clean=pdfAscii(line);
+ if(clean.length<=max)return [clean];
+ const words=clean.split(" "),out=[];let current="";
+ words.forEach(word=>{
+  if((current+" "+word).trim().length>max){if(current)out.push(current);current=word}
+  else current=(current+" "+word).trim();
+ });
+ if(current)out.push(current);
+ return out;
+}
+function makePdf(lines,image=null){
+ const pageLines=[],maxLines=52;
+ lines.flatMap(line=>wrapPdfLine(line)).forEach(line=>{
+  if(!pageLines.length||pageLines[pageLines.length-1].length>=maxLines)pageLines.push([]);
+  pageLines[pageLines.length-1].push(line);
+ });
+ const objects=[];
+ const add=obj=>{objects.push(obj);return objects.length};
+ const catalog=add("<< /Type /Catalog /Pages 2 0 R >>");
+ objects.push("");
+ const pageRefs=[];
+ pageLines.forEach(linesForPage=>{
+  const streamLines=[
+   "BT",
+   "/F1 10 Tf",
+   "14 TL",
+   "42 800 Td",
+   ...linesForPage.map((line,i)=>`${i?"T* ":""}(${pdfEscape(line)}) Tj`),
+   "ET"
+  ];
+  const stream=streamLines.join("\n");
+  const content=add(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+  const page=add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> >> /Contents ${content} 0 R >>`);
+  pageRefs.push(`${page} 0 R`);
+ });
+ if(image?.dataUrl?.startsWith("data:image/jpeg;base64,")){
+  const binary=atob(image.dataUrl.split(",")[1]);
+  const imageObj=add(`<< /Type /XObject /Subtype /Image /Width ${image.width} /Height ${image.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${binary.length} >>\nstream\n${binary}\nendstream`);
+  const targetW=515,targetH=Math.min(360,targetW*image.height/image.width),x=40,y=760-targetH;
+  const stream=`BT\n/F1 14 Tf\n42 800 Td\n(${pdfEscape("Grafico errori")}) Tj\nET\nq\n${targetW.toFixed(2)} 0 0 ${targetH.toFixed(2)} ${x} ${y.toFixed(2)} cm\n/Im1 Do\nQ`;
+  const content=add(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+  const page=add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> /XObject << /Im1 ${imageObj} 0 R >> >> /Contents ${content} 0 R >>`);
+  pageRefs.push(`${page} 0 R`);
+ }
+ objects[1]=`<< /Type /Pages /Kids [${pageRefs.join(" ")}] /Count ${pageRefs.length} >>`;
+ let pdf="%PDF-1.4\n";
+ const offsets=[0];
+ objects.forEach((obj,i)=>{offsets[i+1]=pdf.length;pdf+=`${i+1} 0 obj\n${obj}\nendobj\n`});
+ const xref=pdf.length;
+ pdf+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;
+ for(let i=1;i<=objects.length;i++)pdf+=`${String(offsets[i]).padStart(10,"0")} 00000 n \n`;
+ pdf+=`trailer\n<< /Size ${objects.length+1} /Root ${catalog} 0 R >>\nstartxref\n${xref}\n%%EOF`;
+ return new Blob([Uint8Array.from(pdf, c=>c.charCodeAt(0))],{type:"application/pdf"});
+}
+function currentConfigPdfLines(){
+ calculate();
+ const name=document.querySelector("#recordName").value.trim()||"Configurazione senza nome";
+ const axisName=document.querySelector("#axisName").value.trim()||"Asse";
+ const mode=document.querySelector('[name="motion"]:checked').value;
+ const unit=normalizeUnit(document.querySelector("#unit").value);
+ const modeLabel=motionModeLabel(mode,unit).replace(" conversione","");
+ const lines=[
+  "RapportoTIA - Configurazione",
+  `Progetto: ${name}`,
+  `Asse: ${axisName}`,
+  `Data esportazione: ${new Date().toLocaleString("it-IT")}`,
+  "",
+  "STADI DI TRASMISSIONE"
+ ];
+ document.querySelectorAll(".stage").forEach((s,i)=>{
+  const enabled=s.querySelector(".enabled").checked?"attivo":"escluso";
+  const type=s.querySelector(".type").selectedOptions[0].textContent;
+  const a=s.querySelector(".a").value, b=s.querySelector(".b").value, ratio=s.querySelector(".ratio").textContent;
+  lines.push(`Rapporto ${i+1}: ${enabled} - ${type} - ${a} / ${b} = ${ratio}`);
+ });
+ lines.push("","CONVERSIONE DEL MOTO");
+ lines.push(`Tipo conversione: ${modeLabel}`);
+ if(mode!=="none")lines.push(`${document.querySelector("#motionLabel").textContent}: ${document.querySelector("#motionValue").value}`);
+ lines.push("","VELOCITA");
+ lines.push(`UM movimento asse: ${unit}`);
+ lines.push(`V motore impostata: ${document.querySelector("#rpm").value} rpm`);
+ lines.push(`V asse: ${document.querySelector("#perMin").textContent}`);
+ lines.push(`V asse: ${document.querySelector("#perSec").textContent}`);
+ lines.push("","RISULTATI RAPPORTO");
+ lines.push(`Rapporto totale: ${document.querySelector("#total").textContent}`);
+ lines.push(`Riduzione equivalente: ${document.querySelector("#reduction").textContent}`);
+ lines.push(`TIA Ratio x 1000: ${document.querySelector("#tia").textContent}`);
+ lines.push(`Sviluppo: ${document.querySelector("#development").textContent}`);
+ lines.push(`Unita / giro motore: ${document.querySelector("#perRev").textContent}`);
+if(document.querySelector("#calEnabled").checked){
+  lines.push("","CORREZIONI");
+  lines.push(`Limite devianza: ±${document.querySelector("#deviationLimit").value} ${unit}`);
+  document.querySelectorAll(".correctionRow").forEach(row=>{
+   const idx=row.querySelector(".idx").textContent;
+   const commanded=row.querySelector(".commanded").value;
+   const measured=row.querySelector(".measured").value;
+   const error=row.querySelector(".rowError").textContent;
+   const factor=row.querySelector(".rowFactor").textContent;
+   const result=row.querySelector(".rowResult").textContent;
+   lines.push(`#${idx}: comandata ${commanded} - misurata ${measured} - diff ${error} - fattore ${factor} - risultato ${result}`);
+  });
+  lines.push("","MEDIA CORREZIONI");
+  lines.push(`Differenza media: ${document.querySelector("#positionError").textContent}`);
+  lines.push(`Errore medio: ${document.querySelector("#percentError").textContent}`);
+  lines.push(`Fattore medio: ${document.querySelector("#correctionFactor").textContent}`);
+  lines.push(`${document.querySelector("#correctedLabel").textContent}: ${document.querySelector("#correctedValue").textContent}`);
+  if(!document.querySelector("#correctedDevelopmentBox").classList.contains("hidden"))lines.push(`Sviluppo medio: ${document.querySelector("#correctedDevelopment").textContent}`);
+  if(currentErrorChart.points.length){
+   lines.push("","GRAFICO ERRORI");
+   lines.push(`Titolo grafico: ${currentErrorChart.title}`);
+   lines.push(`Limite devianza: ±${fmt(currentErrorChart.limit,6)} ${currentErrorChart.unit}`);
+   lines.push(`Errore minimo: ${fmt(currentErrorChart.minErr,6)} ${currentErrorChart.unit}`);
+   lines.push(`Errore massimo: ${fmt(currentErrorChart.maxErr,6)} ${currentErrorChart.unit}`);
+   lines.push(`Distanza min/max: ${fmt(currentErrorChart.peakToPeak,6)} ${currentErrorChart.unit}`);
+   lines.push(`Punti fuori limite: ${currentErrorChart.outCount}/${currentErrorChart.points.length}`);
+   lines.push("","ANALISI ERRORE");
+   lines.push(`Esito: ${document.querySelector("#analysisQuality").textContent}`);
+   lines.push(`Tipo errore: ${currentErrorAnalysis.type}`);
+   lines.push(`Affidabilità correzione: ${currentErrorAnalysis.reliability}`);
+   if(Number.isFinite(currentErrorAnalysis.residualMax))lines.push(`Residuo max stimato dopo correzione: ${fmt(currentErrorAnalysis.residualMax,6)} ${currentErrorChart.unit}`);
+   if(Number.isFinite(currentErrorAnalysis.residualSpan))lines.push(`Residuo Δ stimato dopo correzione: ${fmt(currentErrorAnalysis.residualSpan,6)} ${currentErrorChart.unit}`);
+   lines.push(`Nota: ${currentErrorAnalysis.message}`);
+  }
+ }
+ lines.push("","PASSAGGI INTERMEDI");
+ document.querySelectorAll("#steps .step").forEach(step=>lines.push(step.textContent));
+ return lines;
+}
+document.querySelector("#exportPdf").addEventListener("click",async()=>{
+ const name=safeFileName(`${document.querySelector("#recordName").value.trim()||"RapportoTIA"}_${document.querySelector("#axisName").value.trim()||"Asse"}`);
+ let chartImage=null;
+ try{
+  const svg=chartSvgString();
+  if(svg)chartImage=await svgToDataUrl(svg,"image/jpeg",.92,2318,958);
+ }catch{}
+ const blob=makePdf(currentConfigPdfLines(),chartImage);
+ downloadBlob(blob,`${name}_RapportoTIA.pdf`);
+ showStatus(chartImage?"PDF esportato con grafico errori.":"PDF esportato.","ok");
+});
+document.querySelector("#importJson").addEventListener("click",()=>{
+ document.querySelector("#jsonFile").value="";
+ document.querySelector("#jsonFile").click();
+});
+document.querySelector("#jsonFile").addEventListener("change",event=>{
+ const file=event.target.files?.[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=async()=>{
+  try{
+   const parsed=JSON.parse(reader.result);
+   const incoming=Array.isArray(parsed)?parsed:(parsed.projects||parsed.records);
+   if(!Array.isArray(incoming))throw new Error("Formato non valido");
+   const valid=normalizeProjects(incoming).filter(p=>p&&typeof p.name==="string"&&p.name.trim()&&Array.isArray(p.axes));
+   if(!valid.length)throw new Error("Nessun progetto valido");
+   valid.forEach(project=>project.name=project.name.trim());
+   const operation={action:"import",records:valid};
+   try{
+    await flushQueue();const result=await apiRequest(operation);
+    writeRecords(result.records||[]);refreshRecordList(valid[valid.length-1].name);
+    showStatus(`${valid.length} progetti importati nel NAS; gli eventuali nomi uguali sono stati aggiornati.`,"ok");
+   }catch{
+    applyLocal(operation);queueOperation(operation);refreshRecordList(valid[valid.length-1].name);
+    showStatus(`${valid.length} progetti importati offline; saranno sincronizzati automaticamente.`,"error");
+   }
+  }catch{showStatus("File JSON non valido o non compatibile con RapportoTIA.","error")}
+ };
+ reader.onerror=()=>showStatus("Impossibile leggere il file selezionato.","error");
+ reader.readAsText(file);
+});
+function applyTheme(theme){
+ const light=theme==="light";
+ document.body.classList.toggle("light",light);
+ document.querySelector("#themeToggle").textContent=light?"☾ Modalità scura":"☀ Modalità chiara";
+ document.querySelector("#themeColor").content=light?"#edf4fb":"#08111f";
+ const icon=currentAppIcon();
+ document.querySelector("#appLogo").src=icon;
+ document.querySelector("#appleIcon").href=icon;
+ calculate();
+}
+document.querySelector("#themeToggle").addEventListener("click",()=>{
+ const theme=document.body.classList.contains("light")?"dark":"light";
+ localStorage.setItem(THEME_KEY,theme);applyTheme(theme);
+});
+window.addEventListener("online",()=>syncFromNas(document.querySelector("#recordName").value.trim()));
+window.addEventListener("offline",()=>showStatus(`Modalità offline attiva: ${readQueue().length} modifiche in attesa.`,"error"));
+loadData({name:"Nuovo progetto",axes:[{name:"Asse 1",config:emptyConfig()}]});
+document.addEventListener("input",calculate);document.addEventListener("change",calculate);calculate();
+applyTheme(localStorage.getItem(THEME_KEY)||"dark");
+syncFromNas();
+/* Il vecchio worker /ste/sw.js aveva scope globale e poteva intercettare le altre web app.
+   RapportoTIA resta online-first e rimuove soltanto il proprio worker/cache storico. */
+if("serviceWorker"in navigator&&location.protocol.startsWith("http")){
+ window.addEventListener("load",async()=>{
+  try{
+   const registrations=await navigator.serviceWorker.getRegistrations();
+   await Promise.all(registrations.filter(registration=>{
+    const script=registration.active?.scriptURL||registration.waiting?.scriptURL||registration.installing?.scriptURL||"";
+    return new URL(registration.scope).pathname==="/ste/"&&new URL(script).pathname==="/ste/sw.js";
+   }).map(registration=>registration.unregister()));
+   if("caches"in window){
+    const keys=await caches.keys();
+    await Promise.all(keys.filter(key=>key.startsWith("RapportoTIA-")).map(key=>caches.delete(key)));
+   }
+  }catch(error){console.warn("Pulizia service worker RapportoTIA non completata",error)}
+ });
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+

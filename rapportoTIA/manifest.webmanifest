@@ -1,0 +1,23 @@
+{
+  "name": "RapportoTIA",
+  "short_name": "RapportoTIA",
+  "description": "Calcolo cinematico e taratura dei rapporti per assi elettrici TIA Portal",
+  "lang": "it",
+  "start_url": "./RapportoTIA_Portable.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08111f",
+  "theme_color": "#08111f",
+  "icons": [
+    {
+      "src": "AxisGear_Light_256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "AxisGear_Dark_256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
